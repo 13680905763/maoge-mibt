@@ -1042,7 +1042,8 @@ button:focus-visible {
   color: var(--ink);
   background: #f8f8f3;
   font: inherit;
-  font-size: 13px;
+  /* iOS Safari and WeChat zoom focused form controls below 16px. */
+  font-size: 16px;
 }
 
 .form-field input:focus,
