@@ -17,10 +17,10 @@ export async function generateMetadata({ params }: TypePageProps): Promise<Metad
   if (!profile) return {};
 
   return {
-    title: `${code} ${profile.name}｜猫咪性格说明｜猫格 MIBT`,
-    description: `${profile.tagline}。了解 ${code} 猫咪的典型行为、性格优势、注意事项和相处建议。`,
+    title: `${profile.displayCode} ${profile.name}｜猫咪性格说明｜猫格 MIBT`,
+    description: `${profile.tagline}。了解“${profile.name}”猫咪的典型行为、性格优势、注意事项和相处建议。`,
     openGraph: {
-      title: `${code}「${profile.name}」｜猫格 MIBT`,
+      title: `${profile.displayCode}「${profile.name}」｜猫格 MIBT`,
       description: profile.tagline,
     },
   };
@@ -55,7 +55,7 @@ export default async function TypeDetailPage({ params }: TypePageProps) {
       <article className="type-detail">
         <section className="type-detail-hero">
           <p className="eyebrow">猫格类型档案</p>
-          <div className="type-detail-code">{code}</div>
+          <div className="type-detail-code">{profile.displayCode}</div>
           <h1>{profile.name}</h1>
           <strong>{profile.tagline}</strong>
           <p>{profile.summary}</p>
@@ -101,8 +101,8 @@ export default async function TypeDetailPage({ params }: TypePageProps) {
         </section>
 
         <nav className="type-pagination" aria-label="浏览其他猫格">
-          <Link href={`/types/${previousCode.toLowerCase()}/`}><small>上一个</small><strong>{previousCode} · {typeProfiles[previousCode].name}</strong></Link>
-          <Link href={`/types/${nextCode.toLowerCase()}/`}><small>下一个</small><strong>{nextCode} · {typeProfiles[nextCode].name}</strong></Link>
+          <Link href={`/types/${previousCode.toLowerCase()}/`}><small>上一个</small><strong>{typeProfiles[previousCode].displayCode} · {typeProfiles[previousCode].name}</strong></Link>
+          <Link href={`/types/${nextCode.toLowerCase()}/`}><small>下一个</small><strong>{typeProfiles[nextCode].displayCode} · {typeProfiles[nextCode].name}</strong></Link>
         </nav>
       </article>
 

@@ -594,10 +594,11 @@ button:focus-visible {
 .result-code {
   margin-top: 14px;
   color: var(--teal);
-  font-size: clamp(62px, 18vw, 90px);
+  font-size: clamp(42px, 13vw, 72px);
   font-weight: 900;
   line-height: 0.95;
   letter-spacing: -0.07em;
+  overflow-wrap: anywhere;
 }
 
 .result-hero h1 {
@@ -1648,9 +1649,10 @@ button:focus-visible {
 
 .type-index-card > span {
   color: var(--teal);
-  font-size: 25px;
+  font-size: 20px;
   font-weight: 900;
   letter-spacing: -0.05em;
+  overflow-wrap: anywhere;
 }
 
 .type-index-card h2 {
@@ -1684,10 +1686,11 @@ button:focus-visible {
 .type-detail-code {
   margin-top: 18px;
   color: var(--teal);
-  font-size: clamp(88px, 17vw, 150px);
+  font-size: clamp(52px, 11vw, 96px);
   font-weight: 900;
   line-height: 0.86;
   letter-spacing: -0.08em;
+  overflow-wrap: anywhere;
 }
 
 .type-detail-hero h1 {

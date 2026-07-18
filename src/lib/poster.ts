@@ -170,7 +170,8 @@ export async function generateResultPoster(input: PosterInput): Promise<Blob> {
   context.font = `700 24px ${fontFamily}`;
   context.fillText(`${input.catName} 的猫格类型`, 310, 220);
   context.fillStyle = "#2f6f64";
-  context.font = `900 112px ${fontFamily}`;
+  const codeFontSize = Math.max(70, 112 - Math.max(0, input.code.length - 4) * 14);
+  context.font = `900 ${codeFontSize}px ${fontFamily}`;
   context.fillText(input.code, 304, 330);
   context.fillStyle = "#1f2924";
   context.font = `800 42px ${fontFamily}`;

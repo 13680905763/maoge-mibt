@@ -266,7 +266,7 @@ export default function Home() {
     return generateResultPoster({
       catName: profile.name || "我家猫咪",
       avatar: profile.avatar,
-      code: result.code,
+      code: result.profile.displayCode,
       typeName: result.profile.name,
       tagline: result.profile.tagline,
       rows: result.rows,
@@ -291,7 +291,7 @@ export default function Home() {
       const downloadUrl = URL.createObjectURL(poster);
       const link = document.createElement("a");
       link.href = downloadUrl;
-      link.download = `${profile.name || "猫咪"}-${result.code}-猫格海报.png`;
+      link.download = `${profile.name || "猫咪"}-${result.profile.displayCode}-猫格海报.png`;
       link.click();
       URL.revokeObjectURL(downloadUrl);
       setShareStatus("海报已生成，可以发给朋友啦");
@@ -306,7 +306,7 @@ export default function Home() {
   async function shareResult() {
     setIsCreatingPoster(true);
     setShareStatus("");
-    const shareText = `${profile.name || "我家猫咪"}是 ${result.code}「${result.profile.name}」：${result.profile.tagline}`;
+    const shareText = `${profile.name || "我家猫咪"}是 ${result.profile.displayCode}「${result.profile.name}」：${result.profile.tagline}`;
     const shareUrl = getSharedResultUrl();
 
     try {
@@ -458,9 +458,9 @@ export default function Home() {
                       <span>{item.catName.slice(0, 1)}</span>
                       <div>
                         <strong>{item.catName}</strong>
-                        <p>{item.typeName} · {item.mode === "quick" ? "快速版" : "完整版"}</p>
+                        <p>{typeProfiles[item.code]?.name ?? item.typeName} · {item.mode === "quick" ? "快速版" : "完整版"}</p>
                       </div>
-                      <b>{item.code}</b>
+                      <b>{typeProfiles[item.code]?.displayCode ?? item.code}</b>
                     </button>
                   ))}
                 </div>
@@ -659,7 +659,7 @@ export default function Home() {
                 </div>
                 <div><p className="eyebrow">{profile.name}的猫格结果</p><small>{profile.breed || "猫咪"} · {profile.age}</small></div>
               </div>
-              <div className="result-code">{result.code}</div>
+              <div className="result-code">{result.profile.displayCode}</div>
               <h1>{result.profile.name}</h1>
               <strong className="result-tagline">{result.profile.tagline}</strong>
               <p>{result.profile.summary}</p>

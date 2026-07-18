@@ -24,7 +24,7 @@ export default function TypeIndexPage() {
       <section className="type-index-grid" aria-label="16种猫格类型">
         {Object.entries(typeProfiles).map(([code, profile]) => (
           <Link className="type-index-card" href={`/types/${code.toLowerCase()}/`} key={code}>
-            <span>{code}</span>
+            <span>{profile.displayCode}</span>
             <h2>{profile.name}</h2>
             <p>{profile.tagline}</p>
             <b aria-hidden="true">→</b>

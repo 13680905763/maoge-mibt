@@ -67,7 +67,7 @@ export default function SharedResultPage() {
 
           <div className="result-hero shared-result-hero">
             <p className="eyebrow">{sharedResult.catName}的猫格结果</p>
-            <div className="result-code">{sharedResult.code}</div>
+            <div className="result-code">{profile.displayCode}</div>
             <h1>{profile.name}</h1>
             <strong className="result-tagline">{profile.tagline}</strong>
             <p>{profile.summary}</p>

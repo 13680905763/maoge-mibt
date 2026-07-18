@@ -210,27 +210,28 @@ export const dimensions = [
 ];
 
 export const typeNames: Record<string, string> = {
-  ISTJ: "静默钟摆",
-  ISFJ: "柔光港湾",
-  INFJ: "月影回声",
-  INTJ: "黑曜坐标",
-  ISTP: "冷杉猎影",
-  ISFP: "雾中软羽",
-  INFP: "星屑梦匣",
-  INTP: "无声谜室",
-  ESTP: "闪电游弋",
-  ESFP: "盛夏铃音",
-  ENFP: "流星花火",
-  ENTP: "风暴问号",
-  ESTJ: "赤金边界",
-  ESFJ: "暖炉回声",
-  ENFJ: "晨曦引力",
-  ENTJ: "高塔星图",
+  ISTJ: "耄耋",
+  ISFJ: "猫德标兵",
+  INFJ: "人间清醒",
+  INTJ: "猫猫军师",
+  ISTP: "西格玛猫",
+  ISFP: "淡猫",
+  INFP: "赛博菩萨",
+  INTP: "猫学博士",
+  ESTP: "不是哥们",
+  ESFP: "显眼包",
+  ENFP: "快乐星球",
+  ENTP: "已读乱回",
+  ESTJ: "霸道猫总",
+  ESFJ: "绝世好猫",
+  ENFJ: "社交悍匪",
+  ENTJ: "这家没我得散",
 };
 
 export type QuizMode = "quick" | "full";
 
 export type TypeProfile = {
+  displayCode: string;
   name: string;
   tagline: string;
   summary: string;
@@ -268,7 +269,8 @@ export const quizModes: Record<
 
 export const typeProfiles: Record<string, TypeProfile> = {
   ISTJ: {
-    name: "静默钟摆",
+    displayCode: "MaoDie",
+    name: "耄耋",
     tagline: "安静、自律，对熟悉的秩序格外认真",
     summary: "它习惯先观察再行动，偏爱固定路线、熟悉气味和可预期的生活节奏。信任建立得慢，但一旦认定了自己的空间与家人，就会稳定地守在日常里。",
     traits: ["固定时间巡视和休息", "对环境变化较为谨慎", "更喜欢用行动而非叫声表达需求"],
@@ -277,7 +279,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["尽量保持食水和猫砂盆位置稳定", "变化前先放入熟悉气味作为过渡", "用固定仪式开启互动，让它更安心"],
   },
   ISFJ: {
-    name: "柔光港湾",
+    displayCode: "MDBB",
+    name: "猫德标兵",
     tagline: "谨慎温柔，把在意藏在每天的陪伴里",
     summary: "它对外界保持一点距离，却会细心留意熟悉家人的情绪与作息。它需要稳定的安全感，也愿意用靠近、守候和轻柔回应维系关系。",
     traits: ["在人少安静时更愿意亲近", "对语气和家庭气氛很敏感", "喜欢熟悉、柔软且稳定的休息点"],
@@ -286,7 +289,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["提供不被打扰的躲藏空间", "让它主动决定靠近的距离", "保持轻声、缓慢且可预测的互动"],
   },
   INFJ: {
-    name: "月影回声",
+    displayCode: "RJQX",
+    name: "人间清醒",
     tagline: "安静敏锐，既读空气也守护自己的节奏",
     summary: "它常在不远处观察人和环境，能敏锐感知情绪，却不会立刻把反应写在脸上。它偏爱有意义、可重复的互动，并在稳定关系中慢慢展现柔软。",
     traits: ["会默默观察家人的情绪", "对新事物好奇但行动谨慎", "喜欢拥有固定而私密的观察点"],
@@ -295,7 +299,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["从远距离游戏开始建立参与感", "一次只引入一种环境变化", "用安静陪伴代替频繁打扰"],
   },
   INTJ: {
-    name: "黑曜坐标",
+    displayCode: "MMJS",
+    name: "猫猫军师",
     tagline: "独立规划，把领地和路线安排得明明白白",
     summary: "它像一位低调的空间规划师，会记住路线、出口和资源位置。它乐于研究新问题，但更希望按照自己的节奏完成，不太需要持续的情绪确认。",
     traits: ["喜欢从高处掌握环境", "会研究更高效的行动路线", "互动通常短而有明确目的"],
@@ -304,7 +309,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["保留高处观察点和多条通行路线", "逐步提高益智游戏难度", "通过日常记录关注细微行为变化"],
   },
   ISTP: {
-    name: "冷杉猎影",
+    displayCode: "SIGMA",
+    name: "西格玛猫",
     tagline: "沉着的实干派，喜欢亲自确认每个线索",
     summary: "它安静、务实，关注眼前可感知的声音、动作和气味。比起热闹社交，它更享受独立狩猎和即时反馈，并能在变化中快速找到可行办法。",
     traits: ["对移动目标和细小声音敏感", "喜欢短促、有结果的游戏", "休息地点会随环境灵活调整"],
@@ -313,7 +319,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["提供可追踪、可扑抓的动态玩具", "每次游戏保持短而高质量", "为跳跃和冲刺留出安全路线"],
   },
   ISFP: {
-    name: "雾中软羽",
+    displayCode: "DANMAO",
+    name: "淡猫",
     tagline: "柔软随和，只在安全的距离里表达亲近",
     summary: "它安静地感受周围，也很在意互动中的语气与分寸。它不执着严格日程，更愿意跟随当天状态，在舒适时自然靠近、玩耍和探索。",
     traits: ["偏爱轻柔、低刺激的互动", "会根据气氛调整距离", "睡觉和玩耍地点比较随性"],
@@ -322,7 +329,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["准备多个安静休息点", "用慢动作和轻声邀请互动", "多猫家庭为它保留独立资源"],
   },
   INFP: {
-    name: "星屑梦匣",
+    displayCode: "CBPS",
+    name: "赛博菩萨",
     tagline: "内向又好奇，心里装着自己的秘密花园",
     summary: "它不会立刻加入热闹，却常在安全处持续观察和想象下一步。它重视熟悉关系中的情感回应，也喜欢用自己的方式探索变化。",
     traits: ["常从隐蔽处观察新事物", "与信任的人互动很有黏性", "容易创造属于自己的玩法"],
@@ -331,7 +339,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["把新玩具放在安全区附近", "保留每天专属的一对一时间", "允许它先观察，再主动参与"],
   },
   INTP: {
-    name: "无声谜室",
+    displayCode: "MXBS",
+    name: "猫学博士",
     tagline: "独立的解谜者，总在研究事情还能怎么发生",
     summary: "它对人的关注不算高调，却会长时间研究机关、路径和变化。规则可以存在，但它更乐于寻找新解法，在不受干扰时展现出强烈的探索欲。",
     traits: ["喜欢拆解机关和寻找替代路线", "社交需求低但并非没有感情", "作息和休息地点相对灵活"],
@@ -340,7 +349,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["轮换益智玩具而不是一次全摆出", "封好危险缝隙并检查高处", "用选择题式互动尊重它的决定"],
   },
   ESTP: {
-    name: "闪电游弋",
+    displayCode: "BSGM",
+    name: "不是哥们",
     tagline: "哪里有动静，哪里就有它的身影",
     summary: "它热衷参与眼前发生的一切，行动快、恢复也快。比起长期规划，它更相信直接尝试和即时反馈，是家里最容易被新声音和移动目标点燃的成员。",
     traits: ["陌生动静出现时主动确认", "喜欢速度快、反馈强的游戏", "临时改变计划对它影响不大"],
@@ -349,7 +359,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["每天安排高强度短时追逐", "加强门窗和阳台安全", "游戏结束后用取食帮助平静"],
   },
   ESFP: {
-    name: "盛夏铃音",
+    displayCode: "XIANBAO",
+    name: "显眼包",
     tagline: "热情又柔软，喜欢把快乐分享给身边的人",
     summary: "它享受有人参与的生活，对语气和回应都很敏感。它跟着当下兴趣行动，喜欢新鲜互动，也会用靠近、叫声或身体语言把家人拉进自己的世界。",
     traits: ["喜欢待在人群附近", "回应情绪和语气变化很快", "玩耍方式随兴致切换"],
@@ -358,7 +369,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["设置固定但有变化的陪玩时间", "准备可以独立操作的备用玩具", "兴奋后提供安静区域休息"],
   },
   ENFP: {
-    name: "流星花火",
+    displayCode: "KLXQ",
+    name: "快乐星球",
     tagline: "热情的探索家，每天都想发现一点新鲜事",
     summary: "它既喜欢人，也喜欢变化，常常主动发起互动并创造新玩法。情绪回应鲜明、好奇心旺盛，需要丰富环境和稳定关系同时存在。",
     traits: ["主动邀请家人参与游戏", "会探索物品的新用途", "对家庭情绪变化反应明显"],
@@ -367,7 +379,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["定期轮换而非不断堆叠玩具", "安排嗅闻、追逐和解谜组合游戏", "把危险小物和食物妥善收纳"],
   },
   ENTP: {
-    name: "风暴问号",
+    displayCode: "YDLH",
+    name: "已读乱回",
     tagline: "外向的发明家，规则存在就是为了被重新研究",
     summary: "它喜欢参与，也热衷挑战既有玩法。面对障碍，它很少只尝试一次；面对新空间，它会迅速收集信息并寻找更有趣、更高效的路径。",
     traits: ["会主动研究门、盒子和机关", "喜欢改变熟悉游戏的规则", "经常出现在家庭活动中心"],
@@ -376,7 +389,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["提供递进难度的取食机关", "给柜门和危险区域加安全锁", "用每日新任务替代单纯重复游戏"],
   },
   ESTJ: {
-    name: "赤金边界",
+    displayCode: "BDMZ",
+    name: "霸道猫总",
     tagline: "行动明确，是家里秩序和领地的积极管理者",
     summary: "它喜欢参与家庭动态，也习惯按熟悉顺序处理事情。对资源、时间和边界有明确期待，遇到变化时会主动确认，而不是默默等待。",
     traits: ["准时提醒喂食和陪玩", "会主动巡视并确认异常", "对自己的位置和资源很明确"],
@@ -385,7 +399,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["用明确日程回应它的期待", "多猫家庭分散食水和猫砂资源", "改变布局时保留部分原有路线"],
   },
   ESFJ: {
-    name: "暖炉回声",
+    displayCode: "JSHM",
+    name: "绝世好猫",
     tagline: "把家人放在心上，也把每天的陪伴当成仪式",
     summary: "它喜欢稳定而热闹的家庭关系，乐于回应熟悉的人，并对共同生活的节奏十分认真。它的亲近通常清晰可见，也期待自己的表达被接住。",
     traits: ["固定时间主动找人互动", "喜欢参与家庭活动", "对语气、回应和关系变化敏感"],
@@ -394,7 +409,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["每天保留稳定的一对一时间", "忙碌时提供可独立完成的互动任务", "用温和一致的方式设置边界"],
   },
   ENFJ: {
-    name: "晨曦引力",
+    displayCode: "SJHF",
+    name: "社交悍匪",
     tagline: "主动、敏锐，天生懂得把大家聚到一起",
     summary: "它愿意走近人群，也能察觉关系中的细微变化。它喜欢有目标、有节奏的互动，会主动维持联系，并在熟悉秩序中不断寻找更有趣的参与方式。",
     traits: ["经常跟随家人移动", "会根据人的状态调整互动", "对固定的共同活动有期待"],
@@ -403,7 +419,8 @@ export const typeProfiles: Record<string, TypeProfile> = {
     careTips: ["安排稳定且有挑战的共同游戏", "循序渐进练习独处", "多猫互动时提供退出空间"],
   },
   ENTJ: {
-    name: "高塔星图",
+    displayCode: "ZJMWDS",
+    name: "这家没我得散",
     tagline: "自信的探索指挥官，目标和路线都很清楚",
     summary: "它外向、好奇，也喜欢掌控节奏。面对新环境会快速建立自己的地图，面对问题会持续寻找办法；一旦形成规则，它也期待家人与环境保持一致。",
     traits: ["主动探索并占据关键观察点", "会坚持解决障碍和机关", "对资源时间和互动方式有明确要求"],
