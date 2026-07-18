@@ -12,7 +12,7 @@ import {
   type QuizMode,
 } from "@/data/mibt";
 import { trackEvent } from "@/lib/analytics";
-import { generateResultPoster, resizeAvatar } from "@/lib/poster";
+import { generateResultPoster, posterThemeOptions, resizeAvatar, type PosterTheme } from "@/lib/poster";
 import { calculateDimensionResults } from "@/lib/scoring";
 import { buildSharedResultUrl } from "@/lib/share-result";
 
@@ -68,6 +68,8 @@ export default function Home() {
   const [shareStatus, setShareStatus] = useState("");
   const [feedback, setFeedback] = useState("");
   const [isCreatingPoster, setIsCreatingPoster] = useState(false);
+  const [posterTheme, setPosterTheme] = useState<PosterTheme>("identity");
+  const [posterPreviewUrl, setPosterPreviewUrl] = useState("");
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const baseQuestions = useMemo(() => getQuestionsForMode(quizMode), [quizMode]);
@@ -95,6 +97,12 @@ export default function Home() {
     }, 0);
     return () => window.clearTimeout(hydrationTimer);
   }, []);
+
+  useEffect(() => {
+    return () => {
+      if (posterPreviewUrl) URL.revokeObjectURL(posterPreviewUrl);
+    };
+  }, [posterPreviewUrl]);
 
   useEffect(() => {
     if (stage !== "quiz") return;
@@ -271,6 +279,7 @@ export default function Home() {
       tagline: result.profile.tagline,
       rows: result.rows,
       resultUrl,
+      theme: posterTheme,
     });
   }
 
@@ -283,24 +292,28 @@ export default function Home() {
     });
   }
 
-  async function downloadPoster() {
+  async function previewPoster() {
     setIsCreatingPoster(true);
     setShareStatus("");
     try {
       const poster = await createPoster();
-      const downloadUrl = URL.createObjectURL(poster);
-      const link = document.createElement("a");
-      link.href = downloadUrl;
-      link.download = `${profile.name || "猫咪"}-${result.profile.displayCode}-猫格海报.png`;
-      link.click();
-      URL.revokeObjectURL(downloadUrl);
-      setShareStatus("海报已生成，可以发给朋友啦");
-      trackEvent("poster_downloaded", { code: result.code });
+      setPosterPreviewUrl(URL.createObjectURL(poster));
+      setShareStatus("专属海报已生成，微信内可长按图片保存");
+      trackEvent("poster_trial_generated", { code: result.code, theme: posterTheme });
     } catch (error) {
       setShareStatus(error instanceof Error ? error.message : "海报生成失败，请稍后再试");
     } finally {
       setIsCreatingPoster(false);
     }
+  }
+
+  function downloadPoster() {
+    if (!posterPreviewUrl) return;
+    const link = document.createElement("a");
+    link.href = posterPreviewUrl;
+    link.download = `${profile.name || "猫咪"}-${result.profile.displayCode}-猫格海报.png`;
+    link.click();
+    trackEvent("poster_downloaded", { code: result.code, theme: posterTheme });
   }
 
   async function shareResult() {
@@ -323,7 +336,7 @@ export default function Home() {
         await navigator.clipboard.writeText(`${shareText}\n${shareUrl}`);
         setShareStatus("结果文案和链接已复制");
       }
-      trackEvent("result_shared", { code: result.code });
+      trackEvent("result_shared", { code: result.code, theme: posterTheme });
     } catch (error) {
       if (error instanceof DOMException && error.name === "AbortError") return;
       setShareStatus("当前浏览器不支持直接分享，可以下载海报后发送");
@@ -665,16 +678,67 @@ export default function Home() {
               <p>{result.profile.summary}</p>
             </div>
 
-            <div className="share-panel">
-              <div><strong>把它的猫格分享出去</strong><p>自动生成带头像、四维结果和二维码的高清海报</p></div>
+            <section className="poster-offer" aria-labelledby="poster-offer-title">
+              <div className="poster-offer-heading">
+                <div>
+                  <span className="poster-trial-badge">内测限时免费</span>
+                  <h2 id="poster-offer-title">给主子领一张专属海报</h2>
+                  <p>选一个画风，生成带头像、热梗猫格和二维码的高清图片。</p>
+                </div>
+                <div className="poster-price"><del>¥0.99</del><strong>¥0</strong></div>
+              </div>
+
+              <div className="poster-theme-grid" aria-label="选择海报样式">
+                {posterThemeOptions.map((theme) => (
+                  <button
+                    aria-pressed={posterTheme === theme.id}
+                    className="poster-theme-card"
+                    data-selected={posterTheme === theme.id}
+                    key={theme.id}
+                    type="button"
+                    onClick={() => {
+                      setPosterTheme(theme.id);
+                      setPosterPreviewUrl("");
+                      setShareStatus("");
+                      trackEvent("poster_theme_selected", { code: result.code, theme: theme.id });
+                    }}
+                  >
+                    <span className="poster-theme-preview" data-theme={theme.id}>
+                      <small>{theme.kicker}</small>
+                      <span className="poster-mini-avatar">
+                        {profile.avatar ? (
+                          <Image src={profile.avatar} alt="" width={120} height={120} unoptimized />
+                        ) : <span>{profile.name.slice(0, 1) || "喵"}</span>}
+                      </span>
+                      <b>{result.profile.displayCode}</b>
+                      <em>{result.profile.name}</em>
+                    </span>
+                    <strong>{theme.name}</strong>
+                    <i aria-hidden="true">✓</i>
+                  </button>
+                ))}
+              </div>
+
+              <div className="poster-perks"><span>高清无水印</span><span>微信长按保存</span><span>含结果二维码</span></div>
               <div className="share-buttons">
-                <button className="secondary-button" type="button" disabled={isCreatingPoster} onClick={() => void downloadPoster()}>
-                  {isCreatingPoster ? "生成中…" : "下载海报"}
+                <button className="compact-primary" type="button" disabled={isCreatingPoster} onClick={() => void previewPoster()}>
+                  {isCreatingPoster ? "生成中…" : "免费生成海报"}
                 </button>
-                <button className="compact-primary" type="button" disabled={isCreatingPoster} onClick={() => void shareResult()}>立即分享</button>
+                <button className="secondary-button" type="button" disabled={isCreatingPoster} onClick={() => void shareResult()}>直接分享</button>
               </div>
               {shareStatus && <p className="status-message" role="status">{shareStatus}</p>}
-            </div>
+
+              {posterPreviewUrl && (
+                <div className="poster-generated-preview">
+                  <Image src={posterPreviewUrl} alt={`${profile.name}的${result.profile.name}专属海报`} width={1080} height={1440} unoptimized />
+                  <div>
+                    <p>海报已生成</p>
+                    <span>微信内长按图片保存，其他浏览器可下载原图。</span>
+                    <button type="button" onClick={downloadPoster}>下载高清原图</button>
+                  </div>
+                </div>
+              )}
+            </section>
 
             <div className="dimension-card">
               <div className="dimension-heading"><p className="section-label">四维性格倾向</p><span>{quizModes[quizMode].title}</span></div>

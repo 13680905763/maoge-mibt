@@ -7,6 +7,8 @@ export type AnalyticsEventName =
   | "quiz_calibration_added"
   | "quiz_completed"
   | "history_result_opened"
+  | "poster_theme_selected"
+  | "poster_trial_generated"
   | "poster_downloaded"
   | "result_shared"
   | "product_clicked"
